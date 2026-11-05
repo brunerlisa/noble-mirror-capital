@@ -7,6 +7,9 @@ const snapshotQuotes = [
   { name: 'Microsoft', mark: 'bg-[#00a4ef]' },
   { name: 'Amazon', mark: 'bg-[#ff9900]' },
   { name: 'EUR/USD', mark: 'bg-[#3b82f6]' },
+  { name: 'Gold', mark: 'bg-[#f5c400]' },
+  { name: 'Bitcoin', mark: 'bg-[#f7931a]' },
+  { name: 'S&P 500', mark: 'bg-[#22c55e]' },
 ]
 
 function LiveMarketWidget() {
@@ -30,6 +33,9 @@ function LiveMarketWidget() {
               { name: 'NASDAQ:MSFT', displayName: 'Microsoft' },
               { name: 'NASDAQ:AMZN', displayName: 'Amazon' },
               { name: 'FX:EURUSD', displayName: 'EUR/USD' },
+              { name: 'TVC:GOLD', displayName: 'Gold' },
+              { name: 'BITSTAMP:BTCUSD', displayName: 'Bitcoin' },
+              { name: 'FOREXCOM:SPXUSD', displayName: 'S&P 500' },
             ],
           },
         ],
@@ -86,10 +92,10 @@ export default function HeroPhone({ dense = false, responsiveDensity = false }) 
       : 'text-sm md:text-base'
 
   const widgetH = useResponsive
-    ? 'h-[280px] sm:h-[300px] lg:h-72 xl:h-80'
+    ? 'h-[312px] sm:h-[320px] lg:h-[312px] xl:h-[320px]'
     : denseOnly
-      ? 'h-[220px] sm:h-[240px]'
-      : 'h-72 md:h-80'
+      ? 'h-[300px] sm:h-[308px]'
+      : 'h-[312px] md:h-[320px]'
 
   const wrap = useResponsive
     ? 'min-h-0 w-full lg:min-h-[390px]'
