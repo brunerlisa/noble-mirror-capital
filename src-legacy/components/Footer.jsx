@@ -26,7 +26,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <p className="text-lg font-bold tracking-tight mb-3">
-              www.noblemirrorcapital.com <span className="text-primary">Noble Mirror Capital</span>
+              interactiveprimetrd.com <span className="text-primary">Interactive Prime Trade</span>
             </p>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">
               The most advanced AI-powered trading platform for both beginners and professionals.
@@ -103,7 +103,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 pt-8 border-t border-dark-border text-center text-sm text-slate-500">
-          © {new Date().getFullYear()} Noble Mirror Capital. Innovative Finance Technologies.
+          © {new Date().getFullYear()} Interactive Prime Trade. Innovative Finance Technologies.
         </p>
       </div>
     </footer>

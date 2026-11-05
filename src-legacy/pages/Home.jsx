@@ -118,7 +118,7 @@ export default function Home() {
             Ready to copy the best?
           </h2>
           <p className="text-slate-400 mb-8">
-            Join thousands of investors who trade smarter with Noble Mirror Capital.
+            Join thousands of investors who trade smarter with Interactive Prime Trade.
           </p>
           <Link
             to="/auth"

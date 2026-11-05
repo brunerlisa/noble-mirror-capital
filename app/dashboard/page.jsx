@@ -20,6 +20,7 @@ import UpgradePlanSection from '@/components/dashboard/UpgradePlanSection'
 import SettingsSection from '@/components/dashboard/SettingsSection'
 import { displayName, usernameHandle } from '@/components/dashboard/userDisplay'
 import { planDisplayName } from '@/lib/pricingPlans'
+import { BRAND_NAME } from '@/lib/brand'
 import { LanguageSwitcher } from '@/components/SiteTranslator'
 import {
   deleteTrader,
@@ -107,7 +108,10 @@ function DashboardContent() {
           mobileNavOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0`}
       >
-        <div className="px-6 pt-8 pb-6 flex flex-col items-center text-center">
+        <div className="px-6 pt-6 pb-6 flex flex-col items-center text-center">
+          <Link href="/" className="mb-5 text-sm font-bold leading-tight text-primary">
+            {BRAND_NAME}
+          </Link>
           <UserAvatar user={user} size="lg" />
           <p className="mt-3 text-base font-semibold text-white">{displayName(user)}</p>
           <p className="text-sm text-slate-400">@{handle}</p>

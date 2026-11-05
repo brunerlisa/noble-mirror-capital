@@ -18,9 +18,9 @@ export default function Header() {
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-1 shrink-0">
-            <span className="text-sm font-normal text-slate-400 hidden sm:inline">www.noblemirrorcapital.com</span>
+            <span className="text-sm font-normal text-slate-400 hidden sm:inline">interactiveprimetrd.com</span>
             <span className="text-lg font-bold tracking-tight">
-              <span className="text-primary">Noble Mirror Capital</span>
+              <span className="text-primary">Interactive Prime Trade</span>
             </span>
           </Link>
 

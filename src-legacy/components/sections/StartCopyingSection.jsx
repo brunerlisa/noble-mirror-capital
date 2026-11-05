@@ -27,10 +27,10 @@ export default function StartCopyingSection() {
             Start copying & start earning
           </h2>
           <p className="mt-6 text-slate-300 leading-relaxed">
-            Copyelite Trading provides the ability to copy successful strategies OR to share your own strategy and start earning when others copy it.
+            Interactive Prime Trade provides the ability to copy successful strategies OR to share your own strategy and start earning when others copy it.
           </p>
           <p className="mt-4 text-slate-400 text-sm leading-relaxed">
-            Experience the sheer brilliance of Copyelite Trading - a revolutionary platform that effortlessly mirrors the success of profitable traders and lets you copy successful strategies or provide your own strategy to others to be copied and profit from that.
+            Experience the sheer brilliance of Interactive Prime Trade - a revolutionary platform that effortlessly mirrors the success of profitable traders and lets you copy successful strategies or provide your own strategy to others to be copied and profit from that.
           </p>
           <Link
             to="/platform"

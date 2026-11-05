@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/components/AuthProvider'
 import { LanguageSwitcher } from '@/components/SiteTranslator'
+import { BRAND_NAME, LOGO_SRC } from '@/lib/brand'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -19,22 +20,22 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-dark/95 md:backdrop-blur-md border-b border-dark-border min-w-0 max-w-full overflow-x-clip pt-[env(safe-area-inset-top)]">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-w-0">
+      <div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-full w-56 overflow-hidden">
+        <div className="absolute -left-6 top-1/2 h-16 w-44 -translate-y-1/2 rounded-full bg-primary/30 blur-2xl" />
+      </div>
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-w-0">
         <div className="flex items-center justify-between h-14 md:h-16 gap-1.5 sm:gap-2 min-w-0">
           <Link href="/" className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
             <Image
-              src="/noblemirrorcapital.png"
-              alt="Noble Mirror Capital"
+              src={LOGO_SRC}
+              alt={BRAND_NAME}
               width={44}
               height={44}
-              className="rounded-full shrink-0 w-10 h-10 md:w-11 md:h-11"
+              className="rounded-full shrink-0 w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11"
               priority
             />
-            <span className="font-bold tracking-tight leading-none truncate">
-              <span className="text-primary text-[15px] sm:text-base md:text-lg">
-                <span className="sm:hidden">Noble Mirror</span>
-                <span className="hidden sm:inline">Noble Mirror Capital</span>
-              </span>
+            <span className="min-w-0 font-bold tracking-tight leading-tight text-primary text-[12px] min-[400px]:text-[13px] sm:text-base md:text-lg">
+              {BRAND_NAME}
             </span>
           </Link>
 

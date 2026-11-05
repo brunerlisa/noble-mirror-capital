@@ -1,80 +1,66 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { mountTradingView } from '@/lib/mountTradingView'
+
+const snapshotQuotes = [
+  { name: 'Nvidia', mark: 'bg-[#76b900]' },
+  { name: 'Microsoft', mark: 'bg-[#00a4ef]' },
+  { name: 'Amazon', mark: 'bg-[#ff9900]' },
+  { name: 'EUR/USD', mark: 'bg-[#3b82f6]' },
+]
 
 function LiveMarketWidget() {
   const containerRef = useRef(null)
-  const [widgetError, setWidgetError] = useState(false)
+  const [live, setLive] = useState(false)
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return undefined
+    setLive(false)
 
-    setWidgetError(false)
-    container.innerHTML = ''
-
-    const widgetHost = document.createElement('div')
-    widgetHost.className = 'tradingview-widget-container'
-    widgetHost.style.height = '100%'
-    widgetHost.style.width = '100%'
-    widgetHost.style.maxWidth = '100%'
-    widgetHost.style.overflow = 'hidden'
-    widgetHost.style.boxSizing = 'border-box'
-
-    const widgetNode = document.createElement('div')
-    widgetNode.className = 'tradingview-widget-container__widget'
-    widgetNode.style.height = '100%'
-    widgetNode.style.width = '100%'
-    widgetNode.style.maxWidth = '100%'
-    widgetNode.style.boxSizing = 'border-box'
-    widgetHost.appendChild(widgetNode)
-
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js'
-    script.async = true
-    script.text = JSON.stringify({
-      width: '100%',
-      height: '100%',
-      symbolsGroups: [
-        {
-          name: 'Major Assets',
-          symbols: [
-            { name: 'NASDAQ:NVDA', displayName: 'Nvidia' },
-            { name: 'NASDAQ:MSFT', displayName: 'Microsoft' },
-            { name: 'NASDAQ:AMZN', displayName: 'Amazon' },
-            { name: 'FX:EURUSD', displayName: 'EUR/USD' },
-          ],
-        },
-      ],
-      showSymbolLogo: true,
-      isTransparent: true,
-      colorTheme: 'dark',
-      locale: 'en',
+    return mountTradingView(container, {
+      onReady: () => setLive(true),
+      src: 'https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js',
+      config: {
+        symbolsGroups: [
+          {
+            name: 'Major Assets',
+            symbols: [
+              { name: 'NASDAQ:NVDA', displayName: 'Nvidia' },
+              { name: 'NASDAQ:MSFT', displayName: 'Microsoft' },
+              { name: 'NASDAQ:AMZN', displayName: 'Amazon' },
+              { name: 'FX:EURUSD', displayName: 'EUR/USD' },
+            ],
+          },
+        ],
+        showSymbolLogo: true,
+        isTransparent: false,
+        colorTheme: 'dark',
+        locale: 'en',
+      },
     })
-
-    widgetHost.appendChild(script)
-    container.appendChild(widgetHost)
-
-    const healthCheck = window.setTimeout(() => {
-      const iframeExists = !!container.querySelector('iframe')
-      if (!iframeExists) setWidgetError(true)
-    }, 8000)
-
-    return () => {
-      window.clearTimeout(healthCheck)
-      container.innerHTML = ''
-      setWidgetError(false)
-    }
   }, [])
 
   return (
     <div className="relative h-full w-full min-h-0 overflow-hidden rounded-lg lg:rounded-xl border border-slate-700/40 bg-[#0a162d]">
-      <div ref={containerRef} className="h-full w-full max-w-full min-h-[inherit] overflow-hidden [&_iframe]:max-w-full" />
-      {widgetError && (
-        <div className="absolute inset-0 flex items-center justify-center px-3 text-center text-[11px] text-slate-400 bg-[#0a162d]">
-          Live quotes blocked or slow. Open in a normal tab or disable script blockers.
+      <div className={`absolute inset-0 flex flex-col justify-center px-3 py-2 ${live ? 'invisible' : ''}`}>
+        <div className="grid grid-cols-[1fr_72px_64px] gap-2 px-1 pb-1.5 text-[10px] uppercase tracking-wide text-slate-500">
+          <span>Name</span>
+          <span className="text-right">Change</span>
+          <span className="text-right">Chg%</span>
         </div>
-      )}
+        {snapshotQuotes.map((quote) => (
+          <div key={quote.name} className="grid grid-cols-[1fr_72px_64px] items-center gap-2 border-t border-slate-700/40 px-1 py-2">
+            <span className="flex items-center gap-2 text-sm text-slate-100">
+              <span className={`h-2 w-2 rounded-full ${quote.mark}`} />
+              {quote.name}
+            </span>
+            <span className="h-2.5 justify-self-end w-12 rounded-full bg-slate-700/70 animate-pulse" />
+            <span className="h-2.5 justify-self-end w-10 rounded-full bg-slate-700/70 animate-pulse" />
+          </div>
+        ))}
+      </div>
+      <div ref={containerRef} className="absolute inset-0 z-[1] h-full w-full max-w-full overflow-hidden [&_iframe]:max-w-full" />
     </div>
   )
 }
@@ -118,10 +104,12 @@ export default function HeroPhone({ dense = false, responsiveDensity = false }) 
       : 'text-[11px]'
 
   return (
-    <div className={`relative flex items-center justify-center max-w-full min-w-0 overflow-x-clip ${wrap}`}>
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-primary/10 to-transparent blur-3xl" />
+    <div className={`relative flex items-center justify-center max-w-full min-w-0 ${wrap}`}>
+      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-14 -top-8 -bottom-16 z-0 sm:-inset-x-20 sm:-bottom-20">
+        <div className="snapshot-glow absolute inset-0" />
+      </div>
 
-      <div className={`relative w-full min-w-0 border border-slate-700/50 bg-gradient-to-b from-[#0f172a] to-[#0b1220] shadow-xl lg:shadow-2xl ${box}`}>
+      <div className={`relative z-[1] w-full min-w-0 border border-slate-700/50 bg-gradient-to-b from-[#0f172a] to-[#0b1220] shadow-xl lg:shadow-2xl ${box}`}>
         <div className="flex items-center justify-between gap-2 mb-3 lg:mb-4">
           <p className={`text-slate-200 font-semibold ${title} min-w-0`}>
             Live Portfolio Snapshot

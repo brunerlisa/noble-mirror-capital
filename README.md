@@ -1,4 +1,4 @@
-# Noble Mirror Capital - Copy Trading Platform
+# Interactive Prime Trade - Copy Trading Platform
 
 Next.js app with **Supabase Auth** and Supabase database. Auth is enforced in `proxy.js` and API routes. Database writes use the service role.
 
@@ -21,8 +21,8 @@ Get the URL, **anon** key, and **service_role** key from Supabase → Project Se
 Sign-in and sign-up use Supabase email/password.
 
 1. In Supabase → Authentication → URL Configuration, set:
-   - Site URL: `https://noblemirrorcapital.com`
-   - Redirect URLs: `https://noblemirrorcapital.com/auth/callback` and `https://www.noblemirrorcapital.com/auth/callback`
+   - Site URL: `https://interactiveprimetrd.com`
+   - Redirect URLs: `https://interactiveprimetrd.com/auth/callback` and `https://www.interactiveprimetrd.com/auth/callback`
 2. Make yourself admin either with `ADMIN_EMAILS` or in the SQL editor:
 
 ```sql

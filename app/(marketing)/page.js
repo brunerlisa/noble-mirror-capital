@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import RotatingWord from '@/components/RotatingWord'
 import HeroPhone from '@/components/HeroPhone'
+import Avatar from '@/components/Avatar'
 import StockTicker from '@/components/StockTicker'
 import StartCopyingSection from '@/components/sections/StartCopyingSection'
 import PhoneFeaturesSection from '@/components/sections/PhoneFeaturesSection'
@@ -24,6 +24,12 @@ import {
   CashbackIcon,
 } from '@/components/icons/FeatureIcons'
 
+const heroInvestors = [
+  { seed: 'investor-a', src: 'https://i.pravatar.cc/96?img=47' },
+  { seed: 'investor-b', src: 'https://i.pravatar.cc/96?img=12' },
+  { seed: 'investor-c', src: 'https://i.pravatar.cc/96?img=45' },
+]
+
 const featuresGrid = [
   { title: 'Premium Economic Calendar', description: 'Start trading news like the pros with our pro economic calendar', Icon: CalendarIcon },
   { title: 'Technical Views', description: 'Access live trading setups based on pattern recognition and expert analysis.', Icon: CheckSquareIcon },
@@ -37,65 +43,65 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-grid min-w-0 max-w-full overflow-x-clip">
       <section className="relative flex flex-col min-h-0 lg:min-h-[90vh] pt-[4.75rem] lg:pt-28 pb-0 lg:pb-36 overflow-x-clip lg:overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none hidden lg:block" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/6 to-transparent lg:hidden" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="hero-ambient-glow absolute inset-0" />
+        </div>
 
         <div className="relative z-[1] flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-10 w-full max-w-[1280px] xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-10 pt-6 lg:pt-0 pb-6 lg:pb-0 flex-1 min-w-0">
           <div className="min-w-0 lg:flex-1 lg:basis-[58%] w-full">
             <h1
               className="
-              font-bold tracking-[-0.03em] text-white
-              text-[2rem] leading-[1.12] sm:text-4xl sm:leading-[1.1]
-              lg:text-[76px] xl:text-[82px] lg:tracking-[-0.025em] lg:leading-[0.92]
+              hero-display text-white text-left
+              text-[2.15rem] leading-[1.08]
+              sm:text-5xl sm:leading-[1.05]
+              lg:text-[64px] xl:text-[72px] lg:leading-[1.02]
             "
             >
-              <span className="block xl:whitespace-nowrap">Innovative Copy</span>
-              <span className="block xl:whitespace-nowrap">Trading Platform</span>
-              <span className="block xl:whitespace-nowrap">
-                for{' '}
-                <RotatingWord />
-              </span>
+              <span className="block">Trade Smarter.</span>
+              <span className="block text-primary">Grow Together.</span>
             </h1>
 
-            <div className="mt-5 lg:mt-6 flex flex-wrap gap-x-4 gap-y-3 lg:gap-6">
-              <div className="flex items-center gap-2">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary shrink-0" aria-hidden>
-                  <PeopleIcon className="w-4 h-4" />
-                </span>
-                <span className="text-white font-semibold text-sm lg:text-base xl:text-lg">
-                  1,007,000+ Active Users
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 shrink-0" aria-hidden>
-                  <StarIcon className="w-4 h-4" />
-                </span>
-                <span className="text-white font-semibold text-sm lg:text-base xl:text-lg">
-                  4.5 Google Rating
-                </span>
-              </div>
-            </div>
-
-            <p className="mt-5 lg:mt-6 text-slate-300 text-[15px] sm:text-base lg:text-lg leading-relaxed max-w-[680px]">
-              A Platform With Endless Possibilities. When Experts trade, you trade. If they profit, you profit too. Open your account in minutes!
+            <p className="mt-5 lg:mt-6 text-slate-300 text-[15px] sm:text-base lg:text-lg leading-relaxed max-w-[36rem]">
+              Follow experienced traders. Copy their strategies. Take a smarter approach to the financial markets with Interactive Prime Trade.
             </p>
 
-            <div className="mt-6 lg:mt-7">
+            <div className="mt-7 lg:mt-8">
               <Link
                 href="/auth/sign-up"
-                className="
-                  inline-flex items-center justify-center rounded-xl font-semibold
-                  bg-primary hover:bg-primary-dark text-white transition-colors
-                  w-full sm:w-auto min-h-12 px-6 py-3.5 text-base
-                  lg:px-6 lg:py-3.5 lg:text-lg
-                "
+                className="inline-flex items-center justify-center rounded-xl bg-[#F5C400] font-bold text-[#0b1220] shadow-[0_14px_32px_-10px_rgba(245,196,0,0.75)] transition-colors hover:bg-[#E6B400] w-full sm:w-auto min-h-[52px] px-8 py-3.5 text-base"
               >
-                Get Started
+                Start Copying
               </Link>
+
+              <div className="mt-6 flex flex-wrap items-center gap-x-3.5 gap-y-2.5">
+                <div className="flex items-center">
+                  {heroInvestors.map((investor, index) => (
+                    <span
+                      key={investor.seed}
+                      className={`relative ${index === 0 ? '' : '-ml-3'}`}
+                      style={{ zIndex: index + 1 }}
+                    >
+                      <Avatar
+                        seed={investor.seed}
+                        name="Investor"
+                        src={investor.src}
+                        className="h-10 w-10 rounded-full object-cover ring-2 ring-[#050a14]"
+                      />
+                    </span>
+                  ))}
+                  <span className="relative z-10 -ml-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#1c2433] text-[11px] font-bold text-white ring-2 ring-[#050a14]">
+                    +2k
+                  </span>
+                </div>
+                <p className="text-sm sm:text-[15px] font-medium text-slate-400">
+                  Trusted by over 20,000 investors
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="min-w-0 w-full lg:flex-1 lg:basis-[42%] flex justify-center lg:justify-end xl:justify-center xl:pr-4">
+          <div className="relative min-w-0 w-full lg:flex-1 lg:basis-[42%] flex justify-center lg:justify-end xl:justify-center xl:pr-4">
+            <div aria-hidden="true" className="hero-stage-glow pointer-events-none absolute inset-0 overflow-hidden" />
             <HeroPhone responsiveDensity />
           </div>
         </div>
@@ -155,7 +161,7 @@ export default function Home() {
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 min-w-0 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 lg:mb-4">Ready to copy the best?</h2>
           <p className="text-slate-400 text-[15px] lg:text-base mb-6 lg:mb-8">
-            Join thousands of investors who trade smarter with Noble Mirror Capital.
+            Join thousands of investors who trade smarter with Interactive Prime Trade.
           </p>
           <Link
             href="/auth/sign-up"
@@ -167,21 +173,5 @@ export default function Home() {
       </section>
       <SmartsuppChat />
     </div>
-  )
-}
-
-function PeopleIcon({ className }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-    </svg>
-  )
-}
-
-function StarIcon({ className }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-    </svg>
   )
 }

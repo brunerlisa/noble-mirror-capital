@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import { BRAND_NAME, LOGO_SRC } from '@/lib/brand'
 
 const products = [
   { to: '/platform', label: 'Trading Platform' },
@@ -32,14 +33,14 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Image
-                src="/noblemirrorcapital.png"
-                alt="Noble Mirror Capital"
+                src={LOGO_SRC}
+                alt={BRAND_NAME}
                 width={48}
                 height={48}
-                className="rounded-full"
+                className="rounded-full shrink-0"
               />
-              <p className="text-lg font-bold tracking-tight">
-                <span className="text-primary">Noble Mirror Capital</span>
+              <p className="text-lg font-bold tracking-tight leading-tight">
+                <span className="text-primary">{BRAND_NAME}</span>
               </p>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
@@ -114,7 +115,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 pt-8 border-t border-dark-border text-center text-sm text-slate-500 leading-relaxed px-2">
-          © {new Date().getFullYear()} Noble Mirror Capital. Innovative Finance Technologies. &nbsp;|&nbsp;
+          © {new Date().getFullYear()} {BRAND_NAME}. Innovative Finance Technologies. &nbsp;|&nbsp;
           <Link href="/faq" className="text-slate-400 hover:text-primary">
             FAQ
           </Link>{' '}

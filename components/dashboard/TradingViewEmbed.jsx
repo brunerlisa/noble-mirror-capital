@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { mountTradingView } from '@/lib/mountTradingView'
 
 export default function TradingViewEmbed({
   src,
@@ -9,45 +10,17 @@ export default function TradingViewEmbed({
   className = '',
 }) {
   const containerRef = useRef(null)
-  const [error, setError] = useState(false)
+  const [live, setLive] = useState(false)
   const configKey = JSON.stringify(config)
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return undefined
+    setLive(false)
 
-    setError(false)
-    container.innerHTML = ''
-
-    const host = document.createElement('div')
-    host.className = 'tradingview-widget-container'
-    host.style.height = '100%'
-    host.style.width = '100%'
-
-    const widget = document.createElement('div')
-    widget.className = 'tradingview-widget-container__widget'
-    widget.style.height = '100%'
-    widget.style.width = '100%'
-    host.appendChild(widget)
-
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = src.startsWith('http')
-      ? src
-      : `https://s3.tradingview.com/external-embedding/${src}`
-    script.async = true
-    script.text = JSON.stringify(config)
-    host.appendChild(script)
-    container.appendChild(host)
-
-    const healthCheck = window.setTimeout(() => {
-      if (!container.querySelector('iframe')) setError(true)
-    }, 8000)
-
-    return () => {
-      window.clearTimeout(healthCheck)
-      container.innerHTML = ''
-    }
+    return mountTradingView(container, { src, config, onReady: () => setLive(true) })
+    // configKey tracks the serialized widget options.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [src, configKey])
 
   return (
@@ -55,12 +28,12 @@ export default function TradingViewEmbed({
       className={`relative overflow-hidden rounded-2xl border border-dark-border bg-dark-card ${className}`}
       style={{ height }}
     >
-      <div ref={containerRef} className="h-full w-full" />
-      {error ? (
-        <div className="absolute inset-0 flex items-center justify-center px-4 text-center text-sm text-slate-400 bg-dark-card">
-          Live market data could not load. Refresh or disable a script blocker.
-        </div>
-      ) : null}
+      <div className={`absolute inset-0 flex flex-col justify-center gap-3 px-5 ${live ? 'invisible' : ''}`}>
+        <div className="h-3 w-1/3 rounded-full bg-slate-700/70 animate-pulse" />
+        <div className="h-3 w-2/3 rounded-full bg-slate-800/80 animate-pulse" />
+        <div className="h-3 w-1/2 rounded-full bg-slate-800/80 animate-pulse" />
+      </div>
+      <div ref={containerRef} className="absolute inset-0 z-[1] h-full w-full" />
     </div>
   )
 }

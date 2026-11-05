@@ -69,9 +69,9 @@ export default function Dashboard() {
       <aside className="w-60 bg-[#050712] border-r border-[#111827] flex flex-col">
         <div className="h-14 px-5 flex items-center border-b border-[#111827]">
           <div className="flex flex-col">
-            <span className="text-[11px] text-slate-400">www.noblemirrorcapital.com</span>
+            <span className="text-[11px] text-slate-400">interactiveprimetrd.com</span>
             <span className="text-sm font-semibold tracking-wide">
-              <span className="text-primary">Noble Mirror Capital</span>
+              <span className="text-primary">Interactive Prime Trade</span>
             </span>
           </div>
         </div>

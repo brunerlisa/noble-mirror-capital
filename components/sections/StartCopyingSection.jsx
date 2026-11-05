@@ -30,7 +30,7 @@ export default function StartCopyingSection() {
             Start copying & start earning
           </h2>
           <p className="mt-4 lg:mt-6 text-slate-300 leading-relaxed text-[15px] lg:text-base">
-            Copyelite Trading provides the ability to copy successful strategies OR to share your own strategy and start earning when others copy it.
+            Interactive Prime Trade provides the ability to copy successful strategies OR to share your own strategy and start earning when others copy it.
           </p>
           <p className="mt-3 lg:mt-4 text-slate-400 text-sm leading-relaxed">
             Mirror profitable traders effortlessly — copy strategies or provide your own signals to the community.

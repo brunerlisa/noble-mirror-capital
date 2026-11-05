@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
+import { BRAND_NAME, LOGO_SRC } from '@/lib/brand'
 import { LanguageSwitcher } from '@/components/SiteTranslator'
 import PasswordInput from '@/components/PasswordInput'
 
@@ -67,7 +69,10 @@ export default function AuthForm({ mode }) {
       </div>
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 rounded-2xl">
         <div className="hidden md:flex flex-col justify-center px-10 bg-gradient-to-b from-[#050816] to-[#02010a] rounded-2xl border border-slate-900">
-          <h1 className="text-3xl font-semibold mb-4 tracking-tight text-[#00aeef]">Noble Mirror Capital</h1>
+          <div className="mb-4 flex items-center gap-3">
+            <Image src={LOGO_SRC} alt="" width={52} height={52} className="h-12 w-12 shrink-0 rounded-full" />
+            <h1 className="text-2xl xl:text-3xl font-semibold tracking-tight leading-tight text-[#00aeef]">{BRAND_NAME}</h1>
+          </div>
           <p className="text-base text-slate-300 max-w-md leading-relaxed">
             Access secure copy trading, monitor performance in real time, and stay in full control of your capital from one dashboard.
           </p>

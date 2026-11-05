@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { mountTradingView } from '@/lib/mountTradingView'
 
 const tickerSymbols = [
   { proName: 'FOREXCOM:SPXUSD', title: 'S&P 500' },
@@ -16,57 +17,28 @@ const tickerSymbols = [
  */
 export default function StockTicker() {
   const containerRef = useRef(null)
-  const [widgetError, setWidgetError] = useState(false)
+  const [live, setLive] = useState(false)
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return undefined
+    setLive(false)
 
-    setWidgetError(false)
-    container.innerHTML = ''
-
-    const widgetHost = document.createElement('div')
-    widgetHost.className = 'tradingview-widget-container'
-    widgetHost.style.height = '100%'
-    widgetHost.style.width = '100%'
-    widgetHost.style.maxWidth = '100%'
-    widgetHost.style.overflow = 'hidden'
-    widgetHost.style.boxSizing = 'border-box'
-
-    const widgetNode = document.createElement('div')
-    widgetNode.className = 'tradingview-widget-container__widget'
-    widgetNode.style.height = '100%'
-    widgetNode.style.width = '100%'
-    widgetNode.style.maxWidth = '100%'
-    widgetNode.style.boxSizing = 'border-box'
-    widgetHost.appendChild(widgetNode)
-
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js'
-    script.async = true
-    script.text = JSON.stringify({
-      symbols: tickerSymbols,
-      showSymbolLogo: true,
-      isTransparent: true,
-      displayMode: 'adaptive',
-      colorTheme: 'dark',
-      locale: 'en',
+    return mountTradingView(container, {
+      onReady: () => setLive(true),
+      src: 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js',
+      config: {
+        symbols: tickerSymbols,
+        showSymbolLogo: true,
+        isTransparent: false,
+        displayMode: 'adaptive',
+        colorTheme: 'dark',
+        locale: 'en',
+      },
     })
-    widgetHost.appendChild(script)
-    container.appendChild(widgetHost)
-
-    const healthCheck = window.setTimeout(() => {
-      const iframeExists = !!container.querySelector('iframe')
-      if (!iframeExists) setWidgetError(true)
-    }, 8000)
-
-    return () => {
-      window.clearTimeout(healthCheck)
-      container.innerHTML = ''
-      setWidgetError(false)
-    }
   }, [])
+
+  const tape = [...tickerSymbols, ...tickerSymbols]
 
   return (
     <div
@@ -75,12 +47,16 @@ export default function StockTicker() {
         border-y lg:border-y-0 border-dark-border lg:border-t
         bg-dark/90 lg:bg-dark/80"
     >
-      <div ref={containerRef} className="h-full w-full min-w-0 max-w-full overflow-hidden [&_iframe]:max-w-full" />
-      {widgetError && (
-        <div className="absolute inset-0 flex items-center px-2 text-[10px] sm:text-xs text-slate-400 bg-dark/95">
-          Live ticker blocked or slow to load. Try a regular browser tab or disable strict blockers.
+      <div className={`absolute inset-0 flex items-center overflow-hidden ${live ? 'invisible' : ''}`}>
+        <div className="animate-ticker flex w-max items-center gap-8 px-4 text-sm text-slate-300">
+          {tape.map((symbol, index) => (
+            <span key={`${symbol.proName}-${index}`} className="whitespace-nowrap">
+              {symbol.title}
+            </span>
+          ))}
         </div>
-      )}
+      </div>
+      <div ref={containerRef} className="absolute inset-0 z-[1] h-full w-full min-w-0 max-w-full overflow-hidden [&_iframe]:max-w-full" />
     </div>
   )
 }

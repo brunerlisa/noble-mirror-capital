@@ -1,4 +1,4 @@
-# SQL Migrations for Noble Mirror Capital
+# SQL Migrations for Interactive Prime Trade
 
 Run these in your **Supabase SQL Editor** if you have an existing database.
 

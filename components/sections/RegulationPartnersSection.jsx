@@ -75,7 +75,7 @@ export default function RegulationPartnersSection() {
           <div>
             <h3 className="text-white font-bold text-lg sm:text-xl lg:text-2xl mb-4 tracking-tight">We&apos;re Regulated</h3>
             <p className="text-slate-400 text-sm lg:text-[0.95rem] leading-relaxed max-w-md mx-auto">
-              Noble Mirror Capital operates in accordance with the financial regulations and compliance standards outlined
+              Interactive Prime Trade operates in accordance with the financial regulations and compliance standards outlined
               by the SLIBC (Reg. No. 2023-00068) and FSCA (Reg. No. 47490).
             </p>
           </div>

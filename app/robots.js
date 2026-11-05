@@ -1,4 +1,6 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.noblemirrorcapital.com'
+import { siteUrl } from '@/lib/brand'
+
+const canonicalSiteUrl = siteUrl()
 
 export default function robots() {
   return {
@@ -9,7 +11,7 @@ export default function robots() {
         disallow: ['/auth', '/auth/', '/dashboard', '/admin', '/api/'],
       },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    sitemap: `${canonicalSiteUrl}/sitemap.xml`,
+    host: canonicalSiteUrl,
   }
 }

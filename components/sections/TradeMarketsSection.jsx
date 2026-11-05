@@ -1,38 +1,28 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { mountTradingView } from '@/lib/mountTradingView'
+
+const marketTabs = [
+  { title: 'Share CFDs', symbols: ['Meta', 'Netflix', 'Amazon', 'Tesla'] },
+  { title: 'Crypto', symbols: ['Bitcoin', 'Ethereum', 'Solana', 'XRP'] },
+  { title: 'Forex', symbols: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD'] },
+  { title: 'Indices', symbols: ['S&P 500', 'Nasdaq 100', 'Dow Jones', 'FTSE 100'] },
+  { title: 'Commodities', symbols: ['Gold', 'Silver', 'US Oil', 'Brent Oil'] },
+]
 
 export default function TradeMarketsSection() {
   const containerRef = useRef(null)
-  const [widgetError, setWidgetError] = useState(false)
+  const [live, setLive] = useState(false)
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return undefined
+    setLive(false)
 
-    setWidgetError(false)
-    container.innerHTML = ''
-
-    const widgetHost = document.createElement('div')
-    widgetHost.className = 'tradingview-widget-container'
-    widgetHost.style.height = '100%'
-    widgetHost.style.width = '100%'
-    widgetHost.style.maxWidth = '100%'
-    widgetHost.style.overflow = 'hidden'
-    widgetHost.style.boxSizing = 'border-box'
-
-    const widgetNode = document.createElement('div')
-    widgetNode.className = 'tradingview-widget-container__widget'
-    widgetNode.style.height = '100%'
-    widgetNode.style.width = '100%'
-    widgetNode.style.maxWidth = '100%'
-    widgetNode.style.boxSizing = 'border-box'
-    widgetHost.appendChild(widgetNode)
-
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js'
-    script.async = true
-    script.text = JSON.stringify({
+    return mountTradingView(container, {
+      onReady: () => setLive(true),
+      src: 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js',
+      config: {
       colorTheme: 'dark',
       dateRange: '12M',
       showChart: true,
@@ -40,7 +30,7 @@ export default function TradeMarketsSection() {
       width: '100%',
       height: '100%',
       largeChartUrl: '',
-      isTransparent: true,
+      isTransparent: false,
       showSymbolLogo: true,
       showFloatingTooltip: true,
       plotLineColorGrowing: 'rgba(34, 197, 94, 1)',
@@ -99,21 +89,8 @@ export default function TradeMarketsSection() {
           ],
         },
       ],
+    },
     })
-
-    widgetHost.appendChild(script)
-    container.appendChild(widgetHost)
-
-    const healthCheck = window.setTimeout(() => {
-      const iframeExists = !!container.querySelector('iframe')
-      if (!iframeExists) setWidgetError(true)
-    }, 8000)
-
-    return () => {
-      window.clearTimeout(healthCheck)
-      container.innerHTML = ''
-      setWidgetError(false)
-    }
   }, [])
 
   return (
@@ -128,13 +105,22 @@ export default function TradeMarketsSection() {
         </p>
 
         <div className="relative h-[380px] sm:h-[420px] lg:h-[420px] rounded-xl bg-dark-card border border-dark-border overflow-hidden min-w-0">
-          <div ref={containerRef} className="h-full w-full min-w-0 max-w-full overflow-hidden [&_iframe]:max-w-full" />
-          {widgetError && (
-            <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-sm text-slate-400 bg-[#050816]">
-              Live market widget is blocked in this browser session. Disable strict script blockers or open in a normal
-              browser tab to load TradingView live data.
-            </div>
-          )}
+          <div className={`absolute inset-0 grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 lg:grid-cols-5 ${live ? 'invisible' : ''}`}>
+            {marketTabs.map((tab) => (
+              <div key={tab.title} className="rounded-lg border border-slate-700/40 bg-[#0a162d] p-3">
+                <p className="text-xs font-semibold text-slate-300">{tab.title}</p>
+                <ul className="mt-2 space-y-1.5">
+                  {tab.symbols.map((symbol) => (
+                    <li key={symbol} className="flex items-center justify-between gap-2 text-[13px] text-slate-400">
+                      <span>{symbol}</span>
+                      <span className="h-2 w-8 rounded-full bg-slate-700/80 animate-pulse" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div ref={containerRef} className="absolute inset-0 z-[1] h-full w-full min-w-0 max-w-full overflow-hidden [&_iframe]:max-w-full" />
         </div>
       </div>
     </section>

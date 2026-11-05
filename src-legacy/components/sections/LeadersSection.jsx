@@ -19,7 +19,7 @@ export default function LeadersSection() {
           More than 1000 leaders
         </h2>
         <p className="text-slate-400 text-center mb-12">
-          to choose from in Interactive Copyelite Copy
+          to choose from in Interactive Prime Trade
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {leaders.map((leader) => (

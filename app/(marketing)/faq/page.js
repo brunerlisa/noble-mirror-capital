@@ -5,8 +5,8 @@ import { useState } from 'react'
 const faqs = [
   {
     id: 1,
-    question: 'What is Noble Mirror Capital?',
-    answer: 'Noble Mirror Capital is an AI-powered copy trading platform that lets you follow and replicate the strategies of experienced traders. Whether you\'re a beginner or a professional, you can connect to signal providers, copy their trades automatically, and benefit from their expertise without needing to trade yourself.',
+    question: 'What is Interactive Prime Trade?',
+    answer: 'Interactive Prime Trade is an AI-powered copy trading platform that lets you follow and replicate the strategies of experienced traders. Whether you\'re a beginner or a professional, you can connect to signal providers, copy their trades automatically, and benefit from their expertise without needing to trade yourself.',
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     id: 6,
-    question: 'What fees does Noble Mirror Capital charge?',
+    question: 'What fees does Interactive Prime Trade charge?',
     answer: 'We offer different tiers depending on your needs. Basic access may be free with limited features; premium plans include additional tools, analytics, and support. Signal providers may charge their own performance or subscription fees. All fees are disclosed before you sign up or subscribe.',
   },
   {
@@ -41,7 +41,7 @@ const faqs = [
   {
     id: 8,
     question: 'What languages are supported?',
-    answer: 'Noble Mirror Capital supports 12 languages across the platform, including English, Spanish, French, German, Portuguese, Italian, and others. You can switch languages in your account settings.',
+    answer: 'Interactive Prime Trade supports 12 languages across the platform, including English, Spanish, French, German, Portuguese, Italian, and others. You can switch languages in your account settings.',
   },
   {
     id: 9,
@@ -66,7 +66,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="mt-4 text-slate-400">
-            Find answers to common questions about Noble Mirror Capital and copy trading.
+            Find answers to common questions about Interactive Prime Trade and copy trading.
           </p>
 
           <div className="mt-12 space-y-4">

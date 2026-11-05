@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Refund Policy - Noble Mirror Capital',
-  description: 'Refund Policy for Noble Mirror Capital trading platform.',
+  title: 'Refund Policy',
+  description: 'Refund Policy for the Interactive Prime Trade trading platform.',
 }
 
 export default function RefundPage() {
@@ -17,7 +17,7 @@ export default function RefundPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. Overview</h2>
               <p>
-                Noble Mirror Capital is committed to transparent and fair refund procedures. This Refund Policy explains when refunds may be available, how to request them, and under what conditions we will process refund requests. Please read this policy carefully before making any purchase.
+                Interactive Prime Trade is committed to transparent and fair refund procedures. This Refund Policy explains when refunds may be available, how to request them, and under what conditions we will process refund requests. Please read this policy carefully before making any purchase.
               </p>
             </section>
 

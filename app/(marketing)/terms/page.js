@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Terms of Service - Noble Mirror Capital',
-  description: 'Terms of Service for Noble Mirror Capital trading platform.',
+  title: 'Terms of Service',
+  description: 'Terms of Service for the Interactive Prime Trade trading platform.',
 }
 
 export default function TermsPage() {
@@ -17,14 +17,14 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
               <p>
-                By accessing or using Noble Mirror Capital (the Platform, we, us, or our), you agree to be bound by these Terms of Service (Terms). If you do not agree to these Terms, you may not use our Platform or any of our services. These Terms apply to all users, including visitors, registered members, and copy traders.
+                By accessing or using Interactive Prime Trade (the Platform, we, us, or our), you agree to be bound by these Terms of Service (Terms). If you do not agree to these Terms, you may not use our Platform or any of our services. These Terms apply to all users, including visitors, registered members, and copy traders.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">2. Description of Services</h2>
               <p>
-                Noble Mirror Capital provides an AI-powered copy trading platform that allows users to connect with and copy the trading strategies of other participants. Our services include access to the trading platform, AI-assisted trading tools, data analytics, signal copying functionality, and related support. We reserve the right to modify, suspend, or discontinue any part of our services at any time with or without notice.
+                Interactive Prime Trade provides an AI-powered copy trading platform that allows users to connect with and copy the trading strategies of other participants. Our services include access to the trading platform, AI-assisted trading tools, data analytics, signal copying functionality, and related support. We reserve the right to modify, suspend, or discontinue any part of our services at any time with or without notice.
               </p>
             </section>
 
@@ -66,7 +66,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">8. Intellectual Property</h2>
               <p>
-                All content, features, and functionality of the Platform are owned by Noble Mirror Capital or our licensors and are protected by intellectual property laws. You may not copy, modify, distribute, or create derivative works without our express written permission.
+                All content, features, and functionality of the Platform are owned by Interactive Prime Trade or our licensors and are protected by intellectual property laws. You may not copy, modify, distribute, or create derivative works without our express written permission.
               </p>
             </section>
 
@@ -80,14 +80,14 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">10. Limitation of Liability</h2>
               <p>
-                TO THE MAXIMUM EXTENT PERMITTED BY LAW, NOBLE MIRROR CAPITAL AND ITS AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES. OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID TO US IN THE TWELVE MONTHS PRECEDING THE CLAIM.
+                TO THE MAXIMUM EXTENT PERMITTED BY LAW, INTERACTIVE PRIME TRADE AND ITS AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES. OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID TO US IN THE TWELVE MONTHS PRECEDING THE CLAIM.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">11. Indemnification</h2>
               <p>
-                You agree to indemnify and hold harmless Noble Mirror Capital from any claims, damages, losses, or expenses arising from your use of the Platform, your violation of these Terms, or your violation of any third-party rights.
+                You agree to indemnify and hold harmless Interactive Prime Trade from any claims, damages, losses, or expenses arising from your use of the Platform, your violation of these Terms, or your violation of any third-party rights.
               </p>
             </section>
 

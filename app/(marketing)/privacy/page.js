@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Privacy Policy - Noble Mirror Capital',
-  description: 'Privacy Policy for Noble Mirror Capital trading platform.',
+  title: 'Privacy Policy',
+  description: 'Privacy Policy for the Interactive Prime Trade trading platform.',
 }
 
 export default function PrivacyPage() {
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
               <p>
-                Noble Mirror Capital (“we,” “us,” or “our”) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our trading platform, website, and related services. By using our services, you consent to the practices described in this policy.
+                Interactive Prime Trade (“we,” “us,” or “our”) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our trading platform, website, and related services. By using our services, you consent to the practices described in this policy.
               </p>
             </section>
 

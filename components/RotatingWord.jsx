@@ -14,19 +14,10 @@ export default function RotatingWord({ className = '' }) {
   }, [])
 
   return (
-    <span className={`relative inline-block min-w-[6ch] sm:min-w-[7ch] h-[1.2em] align-middle text-amber-400 ${className}`}>
-      {words.map((word, i) => (
-        <span
-          key={word}
-          className="absolute left-0 top-0 transition-all duration-500 ease-in-out whitespace-nowrap text-amber-400"
-          style={{
-            opacity: i === index ? 1 : 0,
-            transform: i === index ? 'translateY(0)' : 'translateY(-6px)',
-          }}
-        >
-          {word}
-        </span>
-      ))}
+    <span className={`inline-block min-w-[8.2ch] align-baseline text-amber-400 ${className}`}>
+      <span key={words[index]} className="hero-word-in inline-block whitespace-nowrap">
+        {words[index]}
+      </span>
     </span>
   )
 }

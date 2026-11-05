@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/components/AuthProvider'
 import { LanguageSwitcher } from '@/components/SiteTranslator'
+import { BRAND_NAME } from '@/lib/brand'
 
 export default function AdminLayout({ children }) {
   const { user, isAdmin, loading, signingOut, signOut } = useAuth()
@@ -61,7 +62,7 @@ export default function AdminLayout({ children }) {
       >
         <div className="h-14 px-5 flex items-center justify-between border-b border-[#111827]">
           <Link href="/admin" className="text-sm font-semibold tracking-wide">
-            <span className="text-primary">Noble Mirror Capital</span>
+            <span className="text-primary">{BRAND_NAME}</span>
           </Link>
           <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-400">ADMIN</span>
         </div>

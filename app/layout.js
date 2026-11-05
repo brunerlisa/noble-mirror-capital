@@ -1,6 +1,7 @@
-import { Outfit } from 'next/font/google'
+import { Outfit, Plus_Jakarta_Sans } from 'next/font/google'
 import { AuthProvider } from '@/components/AuthProvider'
 import SiteTranslateEngine from '@/components/SiteTranslator'
+import { BRAND_NAME, LOGO_SRC, siteUrl } from '@/lib/brand'
 import './globals.css'
 
 const outfit = Outfit({
@@ -8,17 +9,22 @@ const outfit = Outfit({
   variable: '--font-outfit',
 })
 
-const LOGO_SRC = '/noblemirrorcapital.png'
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.noblemirrorcapital.com'
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-jakarta',
+  weight: ['600', '700'],
+})
+
 const googleVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'na68QqLqQW7fBIsd8O_JQ1ooZwZURbpH6FdXhb6Uydk'
+const canonicalSiteUrl = siteUrl()
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Noble Mirror Capital',
-  url: siteUrl,
-  logo: `${siteUrl}${LOGO_SRC}`,
+  name: BRAND_NAME,
+  url: canonicalSiteUrl,
+  logo: `${canonicalSiteUrl}${LOGO_SRC}`,
 }
 
 export const viewport = {
@@ -29,18 +35,18 @@ export const viewport = {
 }
 
 export const metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(canonicalSiteUrl),
   title: {
-    default: 'Noble Mirror Capital - Innovative Copy Trading',
-    template: '%s | Noble Mirror Capital',
+    default: `${BRAND_NAME} - Innovative Copy Trading`,
+    template: `%s | ${BRAND_NAME}`,
   },
   description: 'A platform with endless possibilities. When experts trade, you trade.',
-  applicationName: 'Noble Mirror Capital',
+  applicationName: BRAND_NAME,
   keywords: [
     'copy trading',
     'ai trading platform',
     'social trading',
-    'Noble Mirror Capital',
+    BRAND_NAME,
     'forex copy trading',
     'crypto copy trading',
   ],
@@ -50,31 +56,31 @@ export const metadata = {
   openGraph: {
     type: 'website',
     url: '/',
-    siteName: 'Noble Mirror Capital',
-    title: 'Noble Mirror Capital - Innovative Copy Trading',
+    siteName: BRAND_NAME,
+    title: `${BRAND_NAME} - Innovative Copy Trading`,
     description: 'A platform with endless possibilities. When experts trade, you trade.',
     images: [
       {
         url: LOGO_SRC,
         width: 1024,
         height: 1024,
-        alt: 'Noble Mirror Capital logo',
+        alt: `${BRAND_NAME} logo`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Noble Mirror Capital - Innovative Copy Trading',
+    title: `${BRAND_NAME} - Innovative Copy Trading`,
     description: 'A platform with endless possibilities. When experts trade, you trade.',
     images: [LOGO_SRC],
   },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/noblemirrorcapital.png', type: 'image/png', sizes: '32x32' },
+      { url: LOGO_SRC, type: 'image/png', sizes: '32x32' },
     ],
     shortcut: '/favicon.ico',
-    apple: '/noblemirrorcapital.png',
+    apple: LOGO_SRC,
   },
   verification: {
     google: googleVerification,
@@ -83,7 +89,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${outfit.variable} overflow-x-clip`}>
+    <html lang="en" className={`${outfit.variable} ${jakarta.variable} overflow-x-clip`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

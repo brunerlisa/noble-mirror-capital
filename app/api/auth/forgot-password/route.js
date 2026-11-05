@@ -1,7 +1,8 @@
 import { getSupabaseAdmin } from '@/lib/supabase-server'
+import { BRAND_DOMAIN, BRAND_NAME, siteUrl } from '@/lib/brand'
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.noblemirrorcapital.com').replace(/\/$/, '')
-const FROM = process.env.RESEND_FROM || 'Noble Mirror Capital <noreply@noblemirrorcapital.com>'
+const SITE_URL = siteUrl()
+const FROM = process.env.RESEND_FROM || `${BRAND_NAME} <noreply@${BRAND_DOMAIN}>`
 
 function resetLink(tokenHash) {
   const url = new URL('/auth/reset-password', `${SITE_URL}/`)
@@ -17,7 +18,7 @@ function emailHtml(link) {
     <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;margin:0 auto;background:#070a1b;border:1px solid #1e293b;border-radius:12px;">
       <tr>
         <td style="padding:28px;">
-          <p style="margin:0 0 8px;font-size:18px;color:#00aeef;font-weight:700;">Noble Mirror Capital</p>
+          <p style="margin:0 0 8px;font-size:18px;color:#00aeef;font-weight:700;">Interactive Prime Trade</p>
           <h1 style="margin:0 0 16px;font-size:22px;color:#ffffff;">Reset your password</h1>
           <p style="margin:0 0 20px;font-size:15px;line-height:1.5;">We received a request to reset the password on your account. Use the button below. This link expires soon and only works once.</p>
           <p style="margin:0 0 24px;">
@@ -45,9 +46,9 @@ async function sendResendEmail(email, link) {
     body: JSON.stringify({
       from: FROM,
       to: [email],
-      subject: 'Reset your Noble Mirror Capital password',
+      subject: 'Reset your Interactive Prime Trade password',
       html: emailHtml(link),
-      text: `Reset your Noble Mirror Capital password:\n${link}\n\nIf you did not ask for this, ignore the email.`,
+      text: `Reset your Interactive Prime Trade password:\n${link}\n\nIf you did not ask for this, ignore the email.`,
     }),
   })
   return res.ok

@@ -1,20 +1,22 @@
+import { BRAND_NAME, LOGO_SRC } from '@/lib/brand'
+
 export default function manifest() {
   return {
-    name: 'Noble Mirror Capital',
-    short_name: 'NMC',
+    name: BRAND_NAME,
+    short_name: 'Prime Trade',
     description: 'Innovative copy trading platform.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#02052D',
-    theme_color: '#02052D',
+    background_color: '#050a14',
+    theme_color: '#050a14',
     icons: [
       {
-        src: '/noblemirrorcapital.png',
+        src: LOGO_SRC,
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/noblemirrorcapital.png',
+        src: LOGO_SRC,
         sizes: '512x512',
         type: 'image/png',
       },

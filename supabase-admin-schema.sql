@@ -1,4 +1,4 @@
--- Noble Mirror Capital - Supabase DB Schema
+-- Interactive Prime Trade - Supabase DB Schema
 -- Auth: Supabase Auth. This file is the original table setup.
 -- Run in Supabase SQL editor. Script is fully re-runnable.
 

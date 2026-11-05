@@ -59,7 +59,7 @@ export default function Platform() {
             Get started in minutes
           </h2>
           <p className="text-slate-400 mb-8">
-            Register with a supported broker, verify your account, connect to Noble Mirror Capital, and choose who to copy.
+            Register with a supported broker, verify your account, connect to Interactive Prime Trade, and choose who to copy.
           </p>
           <Link
             to="/about"

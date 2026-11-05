@@ -1,5 +1,5 @@
 -- =============================================================================
--- Noble Mirror Capital - SQL Migrations
+-- Interactive Prime Trade - SQL Migrations
 -- =============================================================================
 -- Run this in your Supabase project: SQL Editor > New query > paste & run
 -- Safe to run multiple times (uses "if not exists" / "add column if not exists")

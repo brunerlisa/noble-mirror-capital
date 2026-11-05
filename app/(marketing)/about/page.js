@@ -13,10 +13,10 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
-              About <span className="gradient-text">Noble Mirror Capital</span>
+              About <span className="gradient-text">Interactive Prime Trade</span>
             </h1>
             <p className="mt-6 text-lg text-slate-400">
-              Noble Mirror Capital is an innovative copy trading platform built for investors who want to benefit from professional trading without the complexity.
+              Interactive Prime Trade is an innovative copy trading platform built for investors who want to benefit from professional trading without the complexity.
             </p>
           </div>
         </div>
