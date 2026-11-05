@@ -68,7 +68,7 @@ export default function Home() {
             <div className="mt-7 lg:mt-8">
               <Link
                 href="/auth/sign-up"
-                className="inline-flex items-center justify-center rounded-xl bg-[#F5C400] font-bold text-[#0b1220] shadow-[0_14px_32px_-10px_rgba(245,196,0,0.75)] transition-colors hover:bg-[#E6B400] w-full sm:w-auto min-h-[52px] px-8 py-3.5 text-base"
+                className="inline-flex items-center justify-center rounded-xl bg-[#F5C400] font-bold text-[#0b1220] transition-colors hover:bg-[#E6B400] w-full sm:w-auto min-h-[52px] px-8 py-3.5 text-base"
               >
                 Start Copying
               </Link>

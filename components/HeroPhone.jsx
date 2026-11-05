@@ -86,10 +86,10 @@ export default function HeroPhone({ dense = false, responsiveDensity = false }) 
       : 'text-sm md:text-base'
 
   const widgetH = useResponsive
-    ? 'h-[200px] sm:h-[220px] lg:h-44 xl:h-48'
+    ? 'h-[280px] sm:h-[300px] lg:h-72 xl:h-80'
     : denseOnly
-      ? 'h-[142px] sm:h-[150px]'
-      : 'h-44 md:h-48'
+      ? 'h-[220px] sm:h-[240px]'
+      : 'h-72 md:h-80'
 
   const wrap = useResponsive
     ? 'min-h-0 w-full lg:min-h-[390px]'
@@ -121,19 +121,8 @@ export default function HeroPhone({ dense = false, responsiveDensity = false }) 
           </span>
         </div>
 
-        <div className={`${widgetH} mb-3 lg:mb-4 min-w-0`}>
+        <div className={`${widgetH} min-w-0`}>
           <LiveMarketWidget />
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-lg border border-slate-700/40 bg-[#0a162d] p-3">
-            <p className="text-xs text-slate-400 leading-tight">Copied Traders</p>
-            <p className="text-white text-xl font-semibold mt-1 leading-none">24</p>
-          </div>
-          <div className="rounded-lg border border-slate-700/40 bg-[#0a162d] p-3">
-            <p className="text-xs text-slate-400 leading-tight">Win Rate</p>
-            <p className="text-emerald-400 text-xl font-semibold mt-1 leading-none">71%</p>
-          </div>
         </div>
 
         <p className="mt-3 text-[11px] text-slate-500 text-right">
