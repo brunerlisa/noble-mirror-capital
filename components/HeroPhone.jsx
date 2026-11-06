@@ -12,6 +12,9 @@ const snapshotQuotes = [
   { name: 'S&P 500', mark: 'bg-[#22c55e]' },
 ]
 
+const MOBILE_FRAME_WIDTH = 540
+const MOBILE_FRAME_HEIGHT = 340
+
 function LiveMarketWidget() {
   const containerRef = useRef(null)
   const [live, setLive] = useState(false)
@@ -78,6 +81,33 @@ function LiveMarketWidget() {
 export default function HeroPhone({ dense = false, responsiveDensity = false }) {
   const denseOnly = dense && !responsiveDensity
   const useResponsive = responsiveDensity
+  const frameRef = useRef(null)
+  const [mobileFit, setMobileFit] = useState(null)
+
+  useEffect(() => {
+    const frame = frameRef.current
+    if (!frame) return undefined
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const measure = () => {
+      if (desktop.matches) {
+        setMobileFit(null)
+        return
+      }
+      const width = frame.clientWidth
+      if (width <= 0) return
+      const scale = Math.min(1, width / MOBILE_FRAME_WIDTH)
+      const height = Math.round(MOBILE_FRAME_HEIGHT * scale)
+      setMobileFit((prev) => (prev && prev.scale === scale && prev.height === height ? prev : { scale, height }))
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(frame)
+    desktop.addEventListener('change', measure)
+    return () => {
+      observer.disconnect()
+      desktop.removeEventListener('change', measure)
+    }
+  }, [])
 
   const box = useResponsive
     ? 'p-4 sm:p-5 lg:p-6 rounded-2xl w-full mx-auto max-w-none lg:max-w-[560px] lg:mx-0'
@@ -111,7 +141,7 @@ export default function HeroPhone({ dense = false, responsiveDensity = false }) 
 
   return (
     <div className={`relative flex items-center justify-center max-w-full min-w-0 ${wrap}`}>
-      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-14 -top-8 -bottom-16 z-0 sm:-inset-x-20 sm:-bottom-20">
+      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-3 -top-4 -bottom-6 z-0 lg:-inset-x-20 lg:-top-8 lg:-bottom-20">
         <div className="snapshot-glow absolute inset-0" />
       </div>
 
@@ -127,8 +157,26 @@ export default function HeroPhone({ dense = false, responsiveDensity = false }) 
           </span>
         </div>
 
-        <div className={`${widgetH} min-w-0`}>
-          <LiveMarketWidget />
+        <div
+          ref={frameRef}
+          className={`relative min-w-0 w-full overflow-hidden ${mobileFit ? '' : widgetH}`}
+          style={mobileFit ? { height: mobileFit.height } : undefined}
+        >
+          <div
+            className={mobileFit ? 'absolute left-0 top-0' : 'h-full w-full'}
+            style={
+              mobileFit
+                ? {
+                    width: MOBILE_FRAME_WIDTH,
+                    height: MOBILE_FRAME_HEIGHT,
+                    transform: `scale(${mobileFit.scale})`,
+                    transformOrigin: 'top left',
+                  }
+                : undefined
+            }
+          >
+            <LiveMarketWidget key={mobileFit ? 'mobile' : 'desktop'} />
+          </div>
         </div>
 
         <p className="mt-3 text-[11px] text-slate-500 text-right">

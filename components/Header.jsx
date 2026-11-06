@@ -34,7 +34,7 @@ export default function Header() {
               className="rounded-full shrink-0 w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11"
               priority
             />
-            <span className="min-w-0 font-bold tracking-tight leading-tight text-primary text-[12px] min-[400px]:text-[13px] sm:text-base md:text-lg">
+            <span className="min-w-0 font-bold tracking-tight leading-none text-primary text-sm whitespace-nowrap sm:text-base md:text-lg">
               {BRAND_NAME}
             </span>
           </Link>
@@ -84,16 +84,7 @@ export default function Header() {
             )}
           </div>
 
-          <div className="flex md:hidden items-center gap-1.5 shrink-0">
-            <LanguageSwitcher compact />
-            {!user && (
-              <Link
-                href="/auth/sign-in"
-                className="shrink-0 px-2.5 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold whitespace-nowrap"
-              >
-                Sign in
-              </Link>
-            )}
+          <div className="flex md:hidden items-center shrink-0">
             <button
               type="button"
               className="shrink-0 p-2 -mr-0.5 text-slate-300 hover:text-white"
@@ -115,6 +106,9 @@ export default function Header() {
         {mobileOpen && (
           <div className="md:hidden py-4 border-t border-dark-border pb-[max(1rem,env(safe-area-inset-bottom))]">
             <nav className="flex flex-col gap-1">
+              <div className="px-4 pb-3">
+                <LanguageSwitcher className="w-full" />
+              </div>
               {navLinks.map(({ to, label }) => (
                 <Link
                   key={label}
