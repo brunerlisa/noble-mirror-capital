@@ -226,7 +226,7 @@ export default function AdminWalletsPage() {
           {loading ? (
             <p className="text-sm text-slate-500">Loading...</p>
           ) : wallets.length === 0 ? (
-            <p className="text-sm text-slate-500">No wallets saved yet. Add BTC, ETH, USDT, USDC, or manual transfer details.</p>
+            <p className="text-sm text-slate-500">No wallets saved yet. Add BTC, ETH, USDT, or USDC.</p>
           ) : (
             <div className="space-y-3">
               {wallets.map((row) => {

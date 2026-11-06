@@ -59,6 +59,10 @@ export default function DepositSection({ onBack }) {
 
   function goAmount() {
     setError('')
+    if (!String(amount).trim() || !Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      setError('Enter a deposit amount.')
+      return
+    }
     if (!amountValid) {
       setError(`Minimum deposit is ${formatUsd(MIN_DEPOSIT_USD)}. Maximum is ${formatUsd(MAX_DEPOSIT_USD)}.`)
       return
@@ -131,12 +135,6 @@ export default function DepositSection({ onBack }) {
   return (
     <div className="space-y-5">
       <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">Deposit</h1>
-      {copyIntent?.name ? (
-        <p className="text-sm text-amber-200">
-          Deposit funds to start copying{' '}
-          <span className="font-semibold text-white">{copyIntent.name}</span>.
-        </p>
-      ) : null}
       <Stepper step={step} />
       {error ? <p className="text-sm text-red-400">{error}</p> : null}
 
@@ -164,13 +162,9 @@ export default function DepositSection({ onBack }) {
               step="1"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder={String(MIN_DEPOSIT_USD)}
+              placeholder=""
               className="w-full h-14 rounded-xl bg-[#0b1220] border border-primary/50 pl-9 pr-4 text-2xl text-white outline-none focus:border-primary"
             />
-          </div>
-          <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
-            <span>Min: {formatUsd(MIN_DEPOSIT_USD)}</span>
-            <span>Max: {formatUsd(MAX_DEPOSIT_USD)}</span>
           </div>
           <button
             type="button"
