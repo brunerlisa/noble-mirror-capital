@@ -202,3 +202,83 @@ export async function PATCH(req) {
     throw e
   }
 }
+
+async function deleteRows(table, column, value) {
+  if (!value) return null
+  const { error } = await supabaseAdmin.from(table).delete().eq(column, value)
+  return error?.message || null
+}
+
+export async function DELETE(req) {
+  try {
+    const admin = await requireAdmin()
+    const body = await req.json().catch(() => ({}))
+    const clerkId = String(body.clerk_user_id || '').trim()
+    const email = normalizeEmail(body.email)
+    if (!clerkId && !email) {
+      return Response.json({ error: 'User id or email is required' }, { status: 400 })
+    }
+    if ((clerkId && clerkId === admin.userId) || (email && email === normalizeEmail(admin.email))) {
+      return Response.json({ error: 'You cannot delete your own admin account.' }, { status: 400 })
+    }
+
+    let profile = null
+    if (clerkId) {
+      const { data } = await supabaseAdmin.from('profiles').select('clerk_user_id, email, role').eq('clerk_user_id', clerkId).maybeSingle()
+      profile = data
+    }
+    if (!profile && email) {
+      const { data } = await supabaseAdmin.from('profiles').select('clerk_user_id, email, role').eq('email', email).maybeSingle()
+      profile = data
+    }
+
+    const targetEmail = normalizeEmail(profile?.email || email)
+    const targetId = String(profile?.clerk_user_id || clerkId || '').trim()
+    if ((targetId && targetId === admin.userId) || (targetEmail && targetEmail === normalizeEmail(admin.email))) {
+      return Response.json({ error: 'You cannot delete your own admin account.' }, { status: 400 })
+    }
+    if (String(profile?.role || '').toLowerCase() === 'admin' || (targetEmail && parseAdminEmails().includes(targetEmail))) {
+      return Response.json({ error: 'Admin accounts cannot be deleted from here.' }, { status: 400 })
+    }
+
+    const authIds = new Set()
+    if (targetId && !targetId.startsWith('manual-')) authIds.add(targetId)
+    if (targetEmail) {
+      try {
+        const authUsers = await listAuthUsers()
+        for (const authUser of authUsers) {
+          if (normalizeEmail(authUser.email) === targetEmail && authUser.id) authIds.add(authUser.id)
+        }
+      } catch (error) {
+        return Response.json({ error: error?.message || 'Could not look up the login account.' }, { status: 500 })
+      }
+    }
+    if ([...authIds].some((authId) => authId === admin.userId)) {
+      return Response.json({ error: 'You cannot delete your own admin account.' }, { status: 400 })
+    }
+    if (!profile && authIds.size === 0 && !targetEmail && !targetId) {
+      return Response.json({ error: 'User not found' }, { status: 404 })
+    }
+
+    const failures = []
+    for (const table of ['payments', 'trade_updates', 'user_accounts']) {
+      failures.push(await deleteRows(table, 'user_clerk_id', targetId))
+      failures.push(await deleteRows(table, 'user_email', targetEmail))
+    }
+    failures.push(await deleteRows('profiles', 'clerk_user_id', targetId))
+    failures.push(await deleteRows('profiles', 'email', targetEmail))
+
+    for (const authId of authIds) {
+      const { error } = await getSupabaseAdmin().auth.admin.deleteUser(authId)
+      if (error && !/not found/i.test(error.message || '')) failures.push(error.message)
+    }
+
+    const message = failures.filter(Boolean).join(' ')
+    if (message) return Response.json({ error: message }, { status: 500 })
+    return Response.json({ ok: true })
+  } catch (e) {
+    if (e.status === 401) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    if (e.status === 403) return Response.json({ error: 'Forbidden' }, { status: 403 })
+    throw e
+  }
+}
