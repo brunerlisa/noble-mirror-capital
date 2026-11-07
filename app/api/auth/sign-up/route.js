@@ -30,7 +30,22 @@ export async function POST(req) {
       )
     }
 
-    return Response.json({ ok: true, userId: data.user?.id })
+    const createdAt = data.user?.created_at || new Date().toISOString()
+    if (data.user?.id) {
+      try {
+        await getSupabaseAdmin().from('profiles').insert({
+          clerk_user_id: data.user.id,
+          email,
+          full_name: fullName,
+          created_at: createdAt,
+          updated_at: createdAt,
+        })
+      } catch {
+        // The auth account is already created. Signup time still comes from auth.users.
+      }
+    }
+
+    return Response.json({ ok: true, userId: data.user?.id, signed_up_at: createdAt })
   } catch (error) {
     return Response.json({ error: error.message || 'Sign up failed' }, { status: 500 })
   }

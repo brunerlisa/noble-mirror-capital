@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Field, ADMIN_INPUT } from '@/components/admin/Field'
 import { listAccounts, listUsers, listPayments, upsertAccount, updatePaymentStatus } from '@/lib/tradingAdminApi'
 import { UPGRADE_PLANS, getUpgradePlan, planDisplayName } from '@/lib/pricingPlans'
+import { formatDateTime } from '@/components/dashboard/userDisplay'
 
 export default function AdminAccountsPage() {
   const [accounts, setAccounts] = useState([])
@@ -80,6 +81,11 @@ export default function AdminAccountsPage() {
     } catch (e) {
       setNotice(e?.message || 'Failed to update account.')
     }
+  }
+
+  const signupTimeFor = (email) => {
+    const match = users.find((row) => (row.email || '').toLowerCase() === (email || '').toLowerCase())
+    return match?.signed_up_at || match?.created_at || ''
   }
 
   const selectUser = (u) => {
@@ -232,6 +238,9 @@ export default function AdminAccountsPage() {
                     className="p-3 rounded-lg border border-[#1f2937] bg-[#060d1f] cursor-pointer hover:border-primary/40"
                   >
                     <p className="text-sm text-white">{a.user_email}</p>
+                    <p className="mt-1 text-[11px] text-slate-500">
+                      Signed up: {formatDateTime(signupTimeFor(a.user_email))}
+                    </p>
                     <div className="mt-1 grid grid-cols-3 gap-2 text-[11px] text-slate-400">
                       <p>Balance: ${Number(a.balance || 0).toLocaleString()}</p>
                       <p>Plan: {planDisplayName(a.plan, a.plan_status)}</p>
@@ -248,15 +257,21 @@ export default function AdminAccountsPage() {
             {users.length === 0 ? (
               <p className="text-sm text-slate-400">No users yet.</p>
             ) : (
-              <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
+              <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
                 {users.map((u) => (
                   <button
                     key={u.clerk_user_id || u.email}
                     type="button"
                     onClick={() => selectUser(u)}
-                    className="w-full p-2 rounded-lg border border-[#1f2937] bg-[#060d1f] text-left text-sm text-slate-200 hover:border-primary/40"
+                    className="w-full p-2 rounded-lg border border-[#1f2937] bg-[#060d1f] text-left hover:border-primary/40"
                   >
-                    {u.email} {u.role === 'admin' && <span className="text-amber-400 text-xs">(admin)</span>}
+                    <p className="text-sm text-slate-200">
+                      {u.full_name || u.email} {u.role === 'admin' && <span className="text-amber-400 text-xs">(admin)</span>}
+                    </p>
+                    {u.full_name ? <p className="text-xs text-slate-400">{u.email}</p> : null}
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Signed up: {formatDateTime(u.signed_up_at || u.created_at)}
+                    </p>
                   </button>
                 ))}
               </div>

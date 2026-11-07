@@ -15,6 +15,7 @@ import {
   upsertAccount,
   upsertTrader,
 } from '@/lib/tradingAdminApi'
+import { formatDateTime } from '@/components/dashboard/userDisplay'
 
 function Panel({ title, children }) {
   return (
@@ -475,8 +476,11 @@ export default function AdminControlCenter() {
                     <div key={u.id || u.email} className="p-3 rounded border border-[#1f2937] bg-[#060d1f]">
                       <p className="text-sm text-white">{u.full_name || 'User'}</p>
                       <p className="text-xs text-slate-400">{u.email || 'No email'}</p>
+                      <p className="text-[11px] text-slate-300 mt-1">
+                        Signed up: {formatDateTime(u.signed_up_at || u.created_at)}
+                      </p>
                       <p className="text-[11px] text-slate-500 mt-1">
-                        Role: {u.role || 'user'} • KYC: {u.kyc_status || 'not_submitted'} • Joined: {u.created_at ? new Date(u.created_at).toLocaleString() : '-'}
+                        Role: {u.role || 'user'} • KYC: {u.kyc_status || 'not_submitted'}
                       </p>
                     </div>
                   ))}
